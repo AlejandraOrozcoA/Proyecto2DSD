@@ -19,5 +19,12 @@ import java.util.Comparator;
                 return Double.compare(c1.getAngulo(), c2.getAngulo());
             }
         }
-    
+        
+        //Ordena por perimetro
+        public class OrdenPorPerimetro implements Comparator<Asteroide> {
+            @Override
+            public int compare(Asteroide a1, Asteroide a2) {
+                return Float.compare(a1.getPerimetro(), a2.getPerimetro());
+            }
+        }
 }

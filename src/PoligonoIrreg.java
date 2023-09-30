@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PoligonoIrreg {
-    private List<Coordenada> list;
+    protected List<Coordenada> list;
     int numVertices;
 
     public PoligonoIrreg(int numVertices) {
@@ -65,6 +65,11 @@ public class PoligonoIrreg {
 
     public List<Coordenada> getList() {
         return list;
+    }
+
+    public double calculaMagnitud(Coordenada coor1, Coordenada coor2){
+        double magnitud = Math.sqrt(Math.pow(coor2.abcisa() - coor1.abcisa(), 2) + Math.pow(coor2.ordenada() - coor1.ordenada(), 2));
+        return magnitud;
     }
 
     @Override
