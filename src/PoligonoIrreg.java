@@ -22,8 +22,8 @@ public class PoligonoIrreg {
     public void generaVertices(){
         Random random = new Random();
         for (int i = 0; i < numVertices; i++) {
-            double x = random.nextDouble() * 400;
-            double y = random.nextDouble() * 400;
+            double x = random.nextDouble() * 600; 
+            double y = random.nextDouble() * 600;
             Coordenada vertice = new Coordenada(x, y);
             anadeVertice(vertice);
         }
