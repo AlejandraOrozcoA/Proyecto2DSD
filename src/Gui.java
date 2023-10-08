@@ -85,6 +85,8 @@ public class Gui extends JFrame {
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
+            int centroX = getWidth() / 2;
+            int centroY = getHeight() / 2;
             if (!flag) {
                 for (Asteroide poligonoIrreg : asteroidesADibujar) {
                     //Color aleatorio para cada asteroide
@@ -106,7 +108,7 @@ public class Gui extends JFrame {
                 
                 for (int i = 0; i < contador; i++) {
                     //Centra el poligono en el panel
-                    asteroidesADibujar.get(i).centrarPoligono();
+                    asteroidesADibujar.get(i).centrarPoligono(centroX, centroY);
                     //Color aleatorio para cada asteroide
                     int r = (int)(Math.random() * 255);
                     int gr = (int)(Math.random() * 255);
@@ -122,8 +124,6 @@ public class Gui extends JFrame {
             }
             //pinta los ejes coordenados 
             g.setColor(Color.red);
-            int centroX = getWidth() / 2;
-            int centroY = getHeight() / 2;
             g.drawLine(centroX, 0, centroX, getHeight());
             g.drawLine(0, centroY, getWidth(), centroY);
         }

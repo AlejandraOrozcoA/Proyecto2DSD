@@ -61,10 +61,10 @@ public class PoligonoIrreg {
         list.sort(ordenar.new OrdenPorAngulo());
     }
 
-    public void centrarPoligono(){
+    public void centrarPoligono(int mitadX, int mitadY){
         Coordenada verticeReferencia = getVerticeReferencia(list);
-        double dezplamientoX = 300 - verticeReferencia.abcisa();
-        double dezplamientoY = 300 - verticeReferencia.ordenada();
+        double dezplamientoX = mitadX - verticeReferencia.abcisa();
+        double dezplamientoY = mitadY - verticeReferencia.ordenada();
         //dezplazamos todos los vertices
         for (Coordenada coordenada : list) {
             coordenada.setAbcisa(coordenada.abcisa() + dezplamientoX);
