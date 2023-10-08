@@ -33,7 +33,7 @@ public class Gui extends JFrame {
         private Timer timer;
         private Timer timer2;
         private boolean flag = false;
-        private int currentIndex = 0;
+        private int contador = 0;
 
         public Panel(int numAsteroides){
             super();
@@ -47,7 +47,9 @@ public class Gui extends JFrame {
                 poligonoIrreg.ordenaVerticesPorAngulo();
                 asteroides.add(poligonoIrreg);
             }
-            asteroidesADibujar = this.asteroides;
+            //Crea una copia de la lista de asteroides en asteroidesADibujar
+            asteroidesADibujar = new ArrayList<Asteroide>(asteroides);
+
             timer = new Timer();
             timer.schedule(new TimerTask(){
                 @Override
@@ -55,31 +57,68 @@ public class Gui extends JFrame {
                     SwingUtilities.invokeLater(() -> {
                         flag = true;
                         repaint();
+                        startTimer2();
                     });
                 }
             },3000);
         }  
 
+        public void startTimer2(){
+            timer2 = new Timer();
+            timer2.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    SwingUtilities.invokeLater(() -> {
+                        if (contador < asteroidesADibujar.size()){
+                            repaint();
+                            contador++;
+                        }
+                        else{
+                            timer2.cancel();
+                        }
+                    });
+                }
+            },0,5000);
+        }
+
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
-            for (Asteroide poligonoIrreg : asteroidesADibujar) {
-                //Centra el poligono en el panel
-                if (flag == true){
-                    poligonoIrreg.centrarPoligono();
+            if (!flag) {
+                for (Asteroide poligonoIrreg : asteroidesADibujar) {
+                    //Color aleatorio para cada asteroide
+                    int r = (int)(Math.random() * 255);
+                    int gr = (int)(Math.random() * 255);
+                    int b = (int)(Math.random()* 255);
+                    g.setColor(new Color(r, gr, b));
+                    g2d.setStroke(new BasicStroke(2));
+                    Polygon poligono=new Polygon();
+                    for (Coordenada coordenada : poligonoIrreg.getList()) {
+                        poligono.addPoint((int)coordenada.abcisa(), (int)coordenada.ordenada());
+                    }
+                    g.drawPolygon(poligono);       
                 }
-                //Color aleatorio para cada asteroide
-                int r = (int)(Math.random() * 255);
-                int gr = (int)(Math.random() * 255);
-                int b = (int)(Math.random()* 255);
-                g.setColor(new Color(r, gr, b));
-                g2d.setStroke(new BasicStroke(2));
-                Polygon poligono=new Polygon();
-                for (Coordenada coordenada : poligonoIrreg.getList()) {
-                    poligono.addPoint((int)coordenada.abcisa(), (int)coordenada.ordenada());
+            }else{
+                //ordenar por perimetro
+                Ordenar ordenar = new Ordenar();
+                asteroidesADibujar.sort(ordenar.new OrdenPorPerimetro());
+                
+                for (int i = 0; i < contador; i++) {
+                    //Centra el poligono en el panel
+                    asteroidesADibujar.get(i).centrarPoligono();
+                    //Color aleatorio para cada asteroide
+                    int r = (int)(Math.random() * 255);
+                    int gr = (int)(Math.random() * 255);
+                    int b = (int)(Math.random()* 255);
+                    g.setColor(new Color(r, gr, b));
+                    g2d.setStroke(new BasicStroke(2));
+                    Polygon poligono=new Polygon();
+                    for (Coordenada coordenada : asteroidesADibujar.get(i).getList()) {
+                        poligono.addPoint((int)coordenada.abcisa(), (int)coordenada.ordenada());
+                    }
+                    g.drawPolygon(poligono);       
                 }
-                g.drawPolygon(poligono);       
             }
             //pinta los ejes coordenados 
             g.setColor(Color.red);

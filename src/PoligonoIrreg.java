@@ -37,7 +37,6 @@ public class PoligonoIrreg {
         double promedioAbcisas = sumaAbcisas / (list.size());
         double promedioOrdenadas = sumaOrdenadas / (list.size());
         Coordenada verticeReferencia = new Coordenada(promedioAbcisas, promedioOrdenadas);
-        System.out.println("Vertice de referencia: " + verticeReferencia.abcisa() + ", " + verticeReferencia.ordenada());
         return verticeReferencia;
     }
 
