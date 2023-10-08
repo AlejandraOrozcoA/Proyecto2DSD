@@ -11,6 +11,7 @@ public class Asteroide extends PoligonoIrreg{
     }
     
     public float obtienePerimetro(){
+        perimetro = 0;
         for (Coordenada coordenada : list) {
             if (list.indexOf(coordenada) > 0 && list.indexOf(coordenada) < list.size() - 1) {
                 perimetro += calculaMagnitud(coordenada, list.get(list.indexOf(coordenada) - 1));

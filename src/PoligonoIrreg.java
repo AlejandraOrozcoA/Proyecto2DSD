@@ -4,7 +4,6 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class PoligonoIrreg {
     protected List<Coordenada> list;
@@ -20,10 +19,9 @@ public class PoligonoIrreg {
     }
 
     public void generaVertices(){
-        Random random = new Random();
         for (int i = 0; i < numVertices; i++) {
-            double x = random.nextDouble() * 600; 
-            double y = random.nextDouble() * 600;
+            double x = Math.random() * 200 ;
+            double y = Math.random() * 200 ;
             Coordenada vertice = new Coordenada(x, y);
             anadeVertice(vertice);
         }
@@ -36,9 +34,10 @@ public class PoligonoIrreg {
             sumaAbcisas += coordenada.abcisa();
             sumaOrdenadas += coordenada.ordenada();
         }
-        double promedioAbcisas = sumaAbcisas / (list.size() - 1);
-        double promedioOrdenadas = sumaOrdenadas / (list.size() - 1);
+        double promedioAbcisas = sumaAbcisas / (list.size());
+        double promedioOrdenadas = sumaOrdenadas / (list.size());
         Coordenada verticeReferencia = new Coordenada(promedioAbcisas, promedioOrdenadas);
+        System.out.println("Vertice de referencia: " + verticeReferencia.abcisa() + ", " + verticeReferencia.ordenada());
         return verticeReferencia;
     }
 
@@ -61,6 +60,17 @@ public class PoligonoIrreg {
         }
         Ordenar ordenar = new Ordenar();
         list.sort(ordenar.new OrdenPorAngulo());
+    }
+
+    public void centrarPoligono(){
+        Coordenada verticeReferencia = getVerticeReferencia(list);
+        double dezplamientoX = 300 - verticeReferencia.abcisa();
+        double dezplamientoY = 300 - verticeReferencia.ordenada();
+        //dezplazamos todos los vertices
+        for (Coordenada coordenada : list) {
+            coordenada.setAbcisa(coordenada.abcisa() + dezplamientoX);
+            coordenada.setOrdenada(coordenada.ordenada() + dezplamientoY);
+        }
     }
 
     public List<Coordenada> getList() {

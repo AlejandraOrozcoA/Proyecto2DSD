@@ -27,6 +27,14 @@ class Coordenada {
     public void setAngulo(double angulo) {
         this.angulo = angulo;
     }
+
+    public double setAbcisa(double x) {
+        return this.x = x;
+    }
+
+    public double setOrdenada(double y) {
+        return this.y = y;
+    }
 }
 
 

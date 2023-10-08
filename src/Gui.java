@@ -19,7 +19,7 @@ public class Gui extends JFrame {
     }
     
     public Gui(int asteroides){
-        setSize(800, 800);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Panel p = new Panel(asteroides);
         add(p);
@@ -31,7 +31,9 @@ public class Gui extends JFrame {
         List<Asteroide> asteroides;
         List<Asteroide> asteroidesADibujar;
         private Timer timer;
+        private Timer timer2;
         private boolean flag = false;
+        private int currentIndex = 0;
 
         public Panel(int numAsteroides){
             super();
@@ -51,7 +53,7 @@ public class Gui extends JFrame {
                 @Override
                 public void run(){
                     SwingUtilities.invokeLater(() -> {
-                        asteroidesADibujar.clear();
+                        flag = true;
                         repaint();
                     });
                 }
@@ -63,18 +65,28 @@ public class Gui extends JFrame {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             for (Asteroide poligonoIrreg : asteroidesADibujar) {
+                //Centra el poligono en el panel
+                if (flag == true){
+                    poligonoIrreg.centrarPoligono();
+                }
                 //Color aleatorio para cada asteroide
                 int r = (int)(Math.random() * 255);
                 int gr = (int)(Math.random() * 255);
-                int b = (int)(Math.random() * 255);
+                int b = (int)(Math.random()* 255);
                 g.setColor(new Color(r, gr, b));
                 g2d.setStroke(new BasicStroke(2));
                 Polygon poligono=new Polygon();
                 for (Coordenada coordenada : poligonoIrreg.getList()) {
                     poligono.addPoint((int)coordenada.abcisa(), (int)coordenada.ordenada());
                 }
-                g.drawPolygon(poligono);
+                g.drawPolygon(poligono);       
             }
+            //pinta los ejes coordenados 
+            g.setColor(Color.red);
+            int centroX = getWidth() / 2;
+            int centroY = getHeight() / 2;
+            g.drawLine(centroX, 0, centroX, getHeight());
+            g.drawLine(0, centroY, getWidth(), centroY);
         }
     }
 }   
