@@ -44,6 +44,10 @@ public class Gui extends JFrame {
                 int vertices = (int)(Math.random() * 15) + 5;
                 poligonoIrreg = new Asteroide(vertices);
                 poligonoIrreg.generaVertices();
+                //Desplazamiento aleatorio entre 0 y 400
+                int desplazamientoX = (int)(Math.random() * 400);
+                int desplazamientoY = (int)(Math.random() * 400);
+                poligonoIrreg.desplazarPoligono(desplazamientoX, desplazamientoY);
                 poligonoIrreg.ordenaVerticesPorAngulo();
                 asteroides.add(poligonoIrreg);
             }
@@ -78,7 +82,7 @@ public class Gui extends JFrame {
                         }
                     });
                 }
-            },0,5000);
+            },0,500);
         }
 
         @Override
@@ -108,7 +112,7 @@ public class Gui extends JFrame {
                 
                 for (int i = 0; i < contador; i++) {
                     //Centra el poligono en el panel
-                    asteroidesADibujar.get(i).centrarPoligono(centroX, centroY);
+                    asteroidesADibujar.get(i).desplazarPoligono(centroX, centroY);
                     //Color aleatorio para cada asteroide
                     int r = (int)(Math.random() * 255);
                     int gr = (int)(Math.random() * 255);

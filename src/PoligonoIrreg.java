@@ -61,7 +61,7 @@ public class PoligonoIrreg {
         list.sort(ordenar.new OrdenPorAngulo());
     }
 
-    public void centrarPoligono(int mitadX, int mitadY){
+    public void desplazarPoligono(int mitadX, int mitadY){
         Coordenada verticeReferencia = getVerticeReferencia(list);
         double dezplamientoX = mitadX - verticeReferencia.abcisa();
         double dezplamientoY = mitadY - verticeReferencia.ordenada();
